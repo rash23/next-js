@@ -7,5 +7,6 @@ import { Popover } from './popover';
 import { Select } from './select';
 import { Skeleton } from './skeleton';
 import { Slider } from './slider';
+import { RangeSlider } from './range-slider';
 
-export { Button, Input, Dialog, Drawer, Checkbox, Popover, Select, Skeleton, Slider };
+export { Button, Input, Dialog, Drawer, Checkbox, Popover, Select, Skeleton, Slider, RangeSlider };
