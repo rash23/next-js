@@ -21,10 +21,10 @@ export const SortPopup: FC<Props> = ({ className }) => {
       </PopoverTrigger>
       <PopoverContent className='w-[240px]'>
         <ul>
-          <li className='hover:bg-secondary hover:text-primary p-2 px-4 cursor-pointer rounded-md'>Сначала популярное</li>
-          <li className='hover:bg-secondary hover:text-primary p-2 px-4 cursor-pointer rounded-md'>Сначала недорогие</li>
-          <li className='hover:bg-secondary hover:text-primary p-2 px-4 cursor-pointer rounded-md'>Сначала дорогие</li>
-          <li className='hover:bg-secondary hover:text-primary p-2 px-4 cursor-pointer rounded-md'>С лучшей оценкой</li>
+          <li className='hover:bg-secondary hover:text-primary p-2 px-4 cursor-pointer rounded-md'>Спочатку популярні</li>
+          <li className='hover:bg-secondary hover:text-primary p-2 px-4 cursor-pointer rounded-md'>Спочатку недорогі</li>
+          <li className='hover:bg-secondary hover:text-primary p-2 px-4 cursor-pointer rounded-md'>Спочатку дорогі</li>
+          <li className='hover:bg-secondary hover:text-primary p-2 px-4 cursor-pointer rounded-md'>З найкращою оцінкою</li>
         </ul>
       </PopoverContent>
     </Popover>
