@@ -13,7 +13,7 @@ interface Props {
   limit?: number;
   searchInputPlaceholder?: string;
   className?: string;
-  selectedIds?: Set<string>;
+  selected?: Set<string>;
   onClickCheckbox?: (value: string) => void;
   loading?: boolean;
   name?: string;
@@ -26,7 +26,7 @@ export const CheckboxFiltersGroup: React.FC<Props> = ({
   limit = 5,
   searchInputPlaceholder = 'Пошук...',
   className,
-  selectedIds,
+  selected,
   onClickCheckbox,
   loading,
   name,
@@ -40,7 +40,7 @@ export const CheckboxFiltersGroup: React.FC<Props> = ({
 
   const filteredItems = showAll
     ? items.filter((item) => item.text.toLowerCase().includes(searchValue.toLowerCase()))
-    : defaultItems?.slice(0, limit) ?? [];
+    : (defaultItems || items)?.slice(0, limit) ?? [];
 
   if (loading) {
     return (
@@ -50,7 +50,7 @@ export const CheckboxFiltersGroup: React.FC<Props> = ({
         {...Array(limit)
           .fill(0)
           .map((_, index) => <Skeleton key={index} className='h-6 mb-4 rounded-[8px]' />)}
-           <Skeleton className='w-28 h-6 mb-5 rounded-[8px]' />
+        <Skeleton className='w-28 h-6 mb-5 rounded-[8px]' />
       </div>
     );
   }
@@ -72,7 +72,7 @@ export const CheckboxFiltersGroup: React.FC<Props> = ({
             text={item.text}
             value={item.value}
             onCheckedChange={() => onClickCheckbox?.(item.value)}
-            checked={selectedIds?.has(item.value)}
+            checked={selected?.has(item.value)}
             endAdornment={item.endAdornment}
             name={name}
           />
