@@ -11,16 +11,12 @@ export interface FilterCheckboxProps {
 }
 
 export const FilterCheckbox: FC<FilterCheckboxProps> = ({ text, value, endAdornment, onCheckedChange, checked, name }) => {
+  const checkboxId = `checkbox-${name}-${String(value)}`;
+  
   return (
     <div className='flex items-center space-x-2'>
-      <Checkbox
-        onCheckedChange={onCheckedChange}
-        checked={checked}
-        value={value}
-        className='rounded-[8px] w-6 h-6'
-        id={`checkbox-${name}-${String(value)}`}
-      />
-      <label htmlFor={`checkbox-${name}-${String(value)}`} className='leading-none cursor-pointer flex-1'>
+      <Checkbox onCheckedChange={onCheckedChange} checked={checked} value={value} className='rounded-[8px] w-6 h-6' id={checkboxId} />
+      <label htmlFor={checkboxId} className='leading-none cursor-pointer flex-1'>
         {text}
       </label>
       {endAdornment}

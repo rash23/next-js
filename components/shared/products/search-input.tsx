@@ -24,8 +24,12 @@ export const SearchInput: FC<Props> = ({ className }) => {
 
   useDebounce(
     async () => {
-      const products = await Api.products.search(searchQuery);
-      setProducts(products);
+      try {
+        const products = await Api.products.search(searchQuery);
+        setProducts(products);
+      } catch (error) {
+        console.error(error);
+      }
     },
     100,
     [searchQuery],
@@ -64,9 +68,10 @@ export const SearchInput: FC<Props> = ({ className }) => {
                 href={`/product/${product.id}`}
                 key={product.id}
                 className='flex items-center gap-3 w-full px-3 py-2 hover:bg-primary/10'
+                onClick={onClickItem}
               >
                 <img src={product.imageUrl} className='rounded-sm h-8 w-8' />
-                <span onClick={onClickItem}>{product.name}</span>
+                <span>{product.name}</span>
               </Link>
             ))}
           </div>

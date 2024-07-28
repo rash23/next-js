@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { FilterCheckbox, FilterCheckboxProps } from './filter-checkbox';
-import { Input } from '@/components/ui';
+import { Input, Skeleton } from '@/components/ui';
 
 type Item = FilterCheckboxProps;
 
@@ -49,9 +49,8 @@ export const CheckboxFiltersGroup: React.FC<Props> = ({
 
         {...Array(limit)
           .fill(0)
-          .map((_, index) => <div key={index} className='w-full mb-4 h-6 bg-gray-200 rounded-[8px] animate-pulse' />)}
-
-        <div className='w-28 h-4 bg-gray-200 rounded-[8px] animate-pulse' />
+          .map((_, index) => <Skeleton key={index} className='h-6 mb-4 rounded-[8px]' />)}
+           <Skeleton className='w-28 h-6 mb-5 rounded-[8px]' />
       </div>
     );
   }
