@@ -9,6 +9,7 @@ import { FilterCheckbox } from './filters/filter-checkbox';
 import { CheckboxFiltersGroup } from './filters/checkbox-filters-group';
 import { ProductCard } from './products/product-card';
 import { ProductsGroupList } from './products/products-group-list';
+import { SearchInput } from './products/search-input';
 
 export {
   Container,
@@ -22,4 +23,5 @@ export {
   CheckboxFiltersGroup,
   ProductCard,
   ProductsGroupList,
+  SearchInput,
 };
