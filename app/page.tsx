@@ -21,12 +21,6 @@ export default function Home() {
       imageUrl: 'https://i.obozrevatel.com/food/recipemain/2019/2/17/vchchai.jpg?size=636x424',
       items: [{ price: 139 }],
     },
-    {
-      id: 4,
-      name: 'Мікс',
-      imageUrl: 'https://e0.edimdoma.ru/data/posts/0002/1429/21429-ed4_wide.jpg?1631194036',
-      items: [{ price: 159 }],
-    },
   ];
 
   return (
