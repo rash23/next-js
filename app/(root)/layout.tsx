@@ -4,21 +4,21 @@ import { ReactNode } from 'react';
 
 export const metadata: Metadata = {
   title: 'Pizza',
+  description: 'Pizza',
 };
 
 export default function RootLayout({
   children,
+  modal,
 }: Readonly<{
   children: ReactNode;
+  modal: ReactNode;
 }>) {
   return (
-    <html lang='en'>
-      <body>
-        <main className='min-h-screen'>
-          <Header />
-          {children}
-        </main>
-      </body>
-    </html>
+    <main className='min-h-screen bg-white'>
+      <Header hasSearch />
+      {children}
+      {modal}
+    </main>
   );
 }
