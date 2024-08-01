@@ -78,7 +78,7 @@ export default async function ProductPage({ params: { id } }: { params: Params }
             </div>
 
             <Button loading={loading} onClick={handleClickAdd} className='h-[55px] px-10 text-base rounded-[18px] w-full'>
-              Добавить в корзину за {totalPrice} ₽
+              Добавить в корзину за {totalPrice} ₴
             </Button> */}
           </div>
         </div>

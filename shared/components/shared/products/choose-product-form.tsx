@@ -9,10 +9,10 @@ interface Props {
   imageUrl: string;
   name: string;
   className?: string;
-  onClickAdd?: VoidFunction;
+  onClickAddCart?: VoidFunction;
 }
 
-export const ChooseProductForm: FC<Props> = ({ name, imageUrl, onClickAdd, className }) => {
+export const ChooseProductForm: FC<Props> = ({ name, imageUrl, onClickAddCart, className }) => {
   const totalPrice = 33;
   return (
     <div className={cn(className, 'flex flex-1')}>
@@ -26,7 +26,7 @@ export const ChooseProductForm: FC<Props> = ({ name, imageUrl, onClickAdd, class
 
         <div className='bg-gray-50 p-5 rounded-md h-[420px] overflow-auto scrollbar'></div>
 
-        <Button className='h-[55px] px-10 text-base rounded-[18px] w-full' onClick={onClickAdd}>
+        <Button className='h-[55px] px-10 text-base rounded-[18px] w-full' onClick={onClickAddCart}>
           Додати до кошика {totalPrice} ₴
         </Button>
       </div>

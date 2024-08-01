@@ -17,3 +17,6 @@ export { Title } from './common/title';
 export { TopBar } from './common/top-bar';
 export { PizzaSelector } from './products/pizza-selector';
 export { IngredientsList } from './ingredients/ingredients-list';
+export { WhiteBlock } from './common/white-block';
+export { CartButton } from './cart/cart-button';
+export { CartDrawer } from './cart/cart-drawer';
