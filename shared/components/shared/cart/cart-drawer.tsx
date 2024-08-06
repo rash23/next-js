@@ -6,15 +6,28 @@ import { Title } from '../common/title';
 import { Sheet, SheetClose, SheetContent, SheetFooter, SheetHeader, SheetTitle, SheetTrigger } from '@/shared/components/ui/sheet';
 import { CartDrawerItem } from './cart-drawer-item';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
-import { FC, PropsWithChildren, useState } from 'react';
+import { FC, PropsWithChildren, useEffect, useState } from 'react';
 import clsx from 'clsx';
 import Link from 'next/link';
 import { getCartItemDetails } from '@/shared/lib';
+import { useCartStore } from '@/shared/store';
+import { PizzaSize, PizzaType } from '@/shared/constants/pizza';
 
 export const CartDrawer: FC<PropsWithChildren> = ({ children }) => {
   const [redirecting, setRedirecting] = useState(false);
-  const totalAmount = 500;
+
   const loading = false;
+
+  const { fetchCartItems, updateItemQuantity, removeCartItem, totalAmount, items } = useCartStore((state) => state);
+
+  const onClickCountButton = (id: number, quantity: number, type: 'plus' | 'minus') => {
+    const value = type === 'plus' ? quantity + 1 : quantity - 1;
+    updateItemQuantity(id, value);
+  };
+
+  useEffect(() => {
+    fetchCartItems();
+  }, []);
 
   return (
     <Sheet>
@@ -24,7 +37,7 @@ export const CartDrawer: FC<PropsWithChildren> = ({ children }) => {
           {totalAmount > 0 && (
             <SheetHeader>
               <SheetTitle>
-                В корзині <span className='font-bold'>{5} товарів</span>
+                В корзині <span className='font-bold'>{items.length} товарів</span>
               </SheetTitle>
             </SheetHeader>
           )}
@@ -47,23 +60,23 @@ export const CartDrawer: FC<PropsWithChildren> = ({ children }) => {
           {totalAmount > 0 && (
             <>
               <div className='-mx-6 mt-5 overflow-y-auto flex-1 scrollbar'>
-                <div className='mb-2'>
-                  <CartDrawerItem
-                    id={1}
-                    name={'Піца "Маргарита"'}
-                    imageUrl={'/assets/images/pizza/margarita.png'}
-                    price={50}
-                    details={getCartItemDetails(1, 20, [
-                      {
-                        name: 'Сир моцарела',
-                      },
-                      {
-                        name: 'Помідори',
-                      },
-                    ])}
-                    quantity={1}
-                  />
-                </div>
+                {items.map((item) => (
+                  <div className='mb-2' key={item.id}>
+                    <CartDrawerItem
+                      name={item.name}
+                      imageUrl={item.imageUrl}
+                      price={item.price}
+                      details={
+                        item.type && item.pizzaSize
+                          ? getCartItemDetails(item.type as PizzaType, item.pizzaSize as PizzaSize, item.ingredients)
+                          : ''
+                      }
+                      quantity={item.quantity}
+                      onClickCountButton={(type) => onClickCountButton(item.id, item.quantity, type)}
+                      onClickRemoveButton={() => removeCartItem(item.id)}
+                    />
+                  </div>
+                ))}
               </div>
 
               <SheetFooter className='-mx-6 bg-white p-8'>

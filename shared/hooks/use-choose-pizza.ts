@@ -1,11 +1,9 @@
 import { useEffect, useState } from 'react';
-import toast from 'react-hot-toast';
 import { useSet } from 'react-use';
 import { ProductWithRelations } from '@/@types/prisma';
 import { PizzaSize, PizzaSizeItem, PizzaType, pizzaDetailsToText, pizzaSizes } from '@/shared/constants/pizza';
 
 export const useChoosePizza = (items?: ProductWithRelations['items']) => {
-  const loading = false;
   const [selectedIngredientsIds, { toggle: toggleAddIngredient }] = useSet<number>(new Set([]));
 
   const [size, setSize] = useState<PizzaSize>(20);
@@ -17,6 +15,8 @@ export const useChoosePizza = (items?: ProductWithRelations['items']) => {
   const isActiveSize = (value: number | string) => {
     return activeSizes?.some((activeSize) => activeSize === Number(value));
   };
+
+  const currentItemId = productItem?.id;
 
   const availablePizzaSizes = pizzaSizes.map<PizzaSizeItem>((obj) => ({
     name: obj.name,
@@ -32,25 +32,6 @@ export const useChoosePizza = (items?: ProductWithRelations['items']) => {
       setSize(Number(availableSize.value) as PizzaSize);
     }
   }, [type]);
-
-  const addPizza = async () => {
-    if (productItem) {
-      try {
-        console.log('addPizza', {
-          productItemId: productItem?.id,
-          pizzaSize: size,
-          type,
-          ingredientsIds: Array.from(selectedIngredientsIds),
-          quantity: 1,
-        });
-
-        toast.success('Товар успішно додана в корзину');
-      } catch (error) {
-        console.error(error);
-        toast.error('Помилка при додаванні товару в корзину');
-      }
-    }
-  };
 
   const setPizzaSize = (value: number | string) => {
     setSize(Number(value) as PizzaSize);
@@ -73,11 +54,10 @@ export const useChoosePizza = (items?: ProductWithRelations['items']) => {
     isActiveSize,
     textDetails,
     isSelectedIngredient,
-    loading,
     size,
     type,
-    addPizza,
     selectedIngredientsIds,
     toggleAddIngredient,
+    currentItemId,
   };
 };

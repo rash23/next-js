@@ -1,7 +1,7 @@
 'use client';
 
 import { cn } from '@/shared/lib/utils';
-import { FC, useState } from 'react';
+import { FC } from 'react';
 import { PizzaImage, PizzaSelector, Title, IngredientsList } from '@/shared/components/shared';
 import { Button } from '@/shared/components/ui';
 import { ProductWithRelations } from '@/@types/prisma';
@@ -13,10 +13,11 @@ interface Props {
   className?: string;
   ingredients: ProductWithRelations['ingredients'];
   items?: ProductWithRelations['items'];
-  onClickAddCart?: VoidFunction;
+  loading?: boolean;
+  onSubmit: (itemId: number, ingredients: number[]) => void;
 }
 
-export const ChoosePizzaForm: FC<Props> = ({ name, items, imageUrl, ingredients, onClickAddCart, className }) => {
+export const ChoosePizzaForm: FC<Props> = ({ name, items, imageUrl, ingredients, onSubmit, className, loading }) => {
   const {
     size,
     type,
@@ -24,10 +25,9 @@ export const ChoosePizzaForm: FC<Props> = ({ name, items, imageUrl, ingredients,
     setPizzaSize,
     setPizzaType,
     textDetails,
-    loading,
-    addPizza,
     selectedIngredientsIds,
     toggleAddIngredient,
+    currentItemId,
   } = useChoosePizza(items);
 
   const totalIngredientPrice: number =
@@ -36,17 +36,9 @@ export const ChoosePizzaForm: FC<Props> = ({ name, items, imageUrl, ingredients,
   const pizzaPrice: number = items?.find((item) => item.size === size && item.type === type)?.price || 0;
   const totalPrice: number = totalIngredientPrice + pizzaPrice;
 
-  const handleClickAdd = async () => {
-    try {
-      await addPizza();
-      onClickAddCart?.();
-      console.log({
-        size,
-        type,
-        ingredients: selectedIngredientsIds,
-      });
-    } catch (error) {
-      console.error(error);
+  const handleClickAdd = () => {
+    if (currentItemId) {
+      onSubmit(currentItemId, Array.from(selectedIngredientsIds));
     }
   };
 

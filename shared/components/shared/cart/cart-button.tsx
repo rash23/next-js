@@ -3,15 +3,14 @@ import { CartDrawer } from './cart-drawer';
 import { Button } from '@/shared/components/ui';
 import { ArrowRight, ShoppingCart } from 'lucide-react';
 import { cn } from '@/shared/lib/utils';
+import { useCartStore } from '@/shared/store';
 
 interface Props {
   className?: string;
 }
 
 export const CartButton: FC<Props> = ({ className }) => {
-  const loading = false;
-  const totalAmount = 500;
-  const items = [1, 2, 3, 4, 5];
+  const { totalAmount, items, loading } = useCartStore((state) => state);
 
   return (
     <CartDrawer>

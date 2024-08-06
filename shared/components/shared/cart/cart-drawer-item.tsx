@@ -3,26 +3,24 @@ import React, { FC } from 'react';
 import { CountButton } from '../cart-item-details';
 import * as CartItemDetails from '../cart-item-details';
 import { CartItemProps } from '../cart-item-details/cart-item-details.types';
-
 import { Trash2Icon } from 'lucide-react';
-import { Ingredient } from '@prisma/client';
-import { PizzaSize, PizzaType } from '@/shared/constants/pizza';
 
 interface Props extends CartItemProps {
-  id: number;
-  ingredients?: Ingredient[];
-  pizzaSize?: PizzaSize;
-  type?: PizzaType;
-
+  className?: string;
+  onClickCountButton: (type: 'plus' | 'minus') => void;
+  onClickRemoveButton: () => void;
 }
 
-export const CartDrawerItem: FC<Props> = ({ id, imageUrl, name, price, details, pizzaSize, type, quantity, className }) => {
-  // const { updateItemQuantity, removeCartItem } = useCart();
-
-  const onClickCountButton = (type: 'plus' | 'minus') => {
-    // updateItemQuantity(id, type === 'plus' ? quantity + 1 : quantity - 1);
-  };
-
+export const CartDrawerItem: FC<Props> = ({
+  imageUrl,
+  name,
+  price,
+  details,
+  quantity,
+  className,
+  onClickCountButton,
+  onClickRemoveButton,
+}) => {
   return (
     <div className={cn('flex bg-white p-5 gap-6', className)}>
       <CartItemDetails.Image src={imageUrl} />
@@ -37,7 +35,7 @@ export const CartDrawerItem: FC<Props> = ({ id, imageUrl, name, price, details, 
           <div className='flex items-center gap-3'>
             <CartItemDetails.Price value={price} />
 
-            <Trash2Icon onClick={() => {}} className='text-gray-400 cursor-pointer hover:text-gray-600' size={16} />
+            <Trash2Icon onClick={onClickRemoveButton} className='text-gray-400 cursor-pointer hover:text-gray-600' size={16} />
           </div>
         </div>
       </div>
