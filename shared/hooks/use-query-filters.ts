@@ -1,7 +1,4 @@
-import { Api } from '@/shared/services/api-client';
-import { Ingredient } from '@prisma/client';
-import { useEffect, useState } from 'react';
-import { useIngredients } from './use-ingredients';
+import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { Filters } from './use-filters';
 import qs from 'qs';
@@ -13,7 +10,7 @@ export const useQueryFilters = (filters: Filters) => {
     ...filters.prices,
     pizzaTypes: Array.from(filters.pizzaTypes),
     sizes: Array.from(filters.sizes),
-    selectedIngredients: Array.from(filters.selectedIngredients),
+    selectedIngredients: Array.from(filters.ingredients),
   };
 
   useEffect(() => {

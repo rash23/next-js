@@ -88,8 +88,8 @@ export const Filters: FC<Props> = ({ className }) => {
         defaultItems={items.slice(0, 6)}
         items={items}
         loading={loading}
-        onClickCheckbox={filters.setSelectedIngredients}
-        selected={filters.selectedIngredients}
+        onClickCheckbox={filters.setIngredients}
+        selected={filters.ingredients}
       />
     </div>
   );

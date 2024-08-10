@@ -4,6 +4,7 @@ import { Plus } from 'lucide-react';
 import { cn } from '@/shared/lib/utils';
 import { Title } from '../common/title';
 import Link from 'next/link';
+import { Ingredient } from '@prisma/client';
 
 interface Props {
   id: number;
@@ -11,9 +12,10 @@ interface Props {
   price: number;
   imageUrl: string;
   className?: string;
+  ingredients?: Ingredient[];
 }
 
-export const ProductCard: FC<Props> = ({ id, name, price, imageUrl, className }) => {
+export const ProductCard: FC<Props> = ({ id, name, price, imageUrl, className, ingredients }) => {
   return (
     <div className={cn(className)}>
       <Link href={`/product/${id}`}>
@@ -23,10 +25,7 @@ export const ProductCard: FC<Props> = ({ id, name, price, imageUrl, className })
 
         <Title text={name} size='sm' className='mb-1 mt-3 font-bold' />
 
-        <p className='text-sm text-gray-400'>
-          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Recusandae laboriosam laudantium ex similique, nam odio obcaecati omnis!
-          Rem quo velit unde recusandae temporibus nisi aperiam laborum, molestiae ullam saepe laudantium.
-        </p>
+        <p className='text-sm text-gray-400'>{ingredients?.map((ingredient) => ingredient.name.toLowerCase()).join(', ')}</p>
 
         <div className='flex justify-between items-center mt-4'>
           <span className='text-[20px]'>
